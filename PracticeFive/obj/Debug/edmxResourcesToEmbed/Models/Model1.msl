@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="SaveAnimalsModelStoreContainer" CdmEntityContainer="SaveAnimalsEntities">
-    <EntitySetMapping Name="tBlog">
-      <EntityTypeMapping TypeName="SaveAnimalsModel.tBlog">
-        <MappingFragment StoreEntitySet="tBlog">
-          <ScalarProperty Name="BlogID" ColumnName="BlogID" />
-          <ScalarProperty Name="BlogMemberID" ColumnName="BlogMemberID" />
-          <ScalarProperty Name="BlogCategory" ColumnName="BlogCategory" />
-          <ScalarProperty Name="BlogTitle" ColumnName="BlogTitle" />
-          <ScalarProperty Name="BlogContent" ColumnName="BlogContent" />
-          <ScalarProperty Name="Created_At" ColumnName="Created_At" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tMember">
       <EntityTypeMapping TypeName="SaveAnimalsModel.tMember">
         <MappingFragment StoreEntitySet="tMember">
@@ -61,20 +49,44 @@
     <EntitySetMapping Name="tTransfer">
       <EntityTypeMapping TypeName="SaveAnimalsModel.tTransfer">
         <MappingFragment StoreEntitySet="tTransfer">
-          <ScalarProperty Name="TransferID" ColumnName="TransferID" />
-          <ScalarProperty Name="TransferMemberID" ColumnName="TransferMemberID" />
-          <ScalarProperty Name="TransferDone" ColumnName="TransferDone" />
-          <ScalarProperty Name="TransferPictures" ColumnName="TransferPictures" />
-          <ScalarProperty Name="TransferPosition" ColumnName="TransferPosition" />
-          <ScalarProperty Name="TransferGender" ColumnName="TransferGender" />
-          <ScalarProperty Name="TransferName" ColumnName="TransferName" />
-          <ScalarProperty Name="TransferSpecies" ColumnName="TransferSpecies" />
-          <ScalarProperty Name="TransferNeuter" ColumnName="TransferNeuter" />
-          <ScalarProperty Name="TransferSituation" ColumnName="TransferSituation" />
-          <ScalarProperty Name="TransferRequest" ColumnName="TransferRequest" />
-          <ScalarProperty Name="TransferContactWay" ColumnName="TransferContactWay" />
-          <ScalarProperty Name="TransferContactPerson" ColumnName="TransferContactPerson" />
           <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+          <ScalarProperty Name="TransferContactPerson" ColumnName="TransferContactPerson" />
+          <ScalarProperty Name="TransferContactWay" ColumnName="TransferContactWay" />
+          <ScalarProperty Name="TransferRequest" ColumnName="TransferRequest" />
+          <ScalarProperty Name="TransferSituation" ColumnName="TransferSituation" />
+          <ScalarProperty Name="TransferNeuter" ColumnName="TransferNeuter" />
+          <ScalarProperty Name="TransferSpecies" ColumnName="TransferSpecies" />
+          <ScalarProperty Name="TransferName" ColumnName="TransferName" />
+          <ScalarProperty Name="TransferGender" ColumnName="TransferGender" />
+          <ScalarProperty Name="TransferPositionCountry" ColumnName="TransferPositionCountry" />
+          <ScalarProperty Name="TransferPositionCity" ColumnName="TransferPositionCity" />
+          <ScalarProperty Name="TransferPictures" ColumnName="TransferPictures" />
+          <ScalarProperty Name="TransferDone" ColumnName="TransferDone" />
+          <ScalarProperty Name="TransferMemberID" ColumnName="TransferMemberID" />
+          <ScalarProperty Name="TransferID" ColumnName="TransferID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tBlog">
+      <EntityTypeMapping TypeName="SaveAnimalsModel.tBlog">
+        <MappingFragment StoreEntitySet="tBlog">
+          <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+          <ScalarProperty Name="BlogContent" ColumnName="BlogContent" />
+          <ScalarProperty Name="BlogTitle" ColumnName="BlogTitle" />
+          <ScalarProperty Name="BlogCategory" ColumnName="BlogCategory" />
+          <ScalarProperty Name="BlogMemberID" ColumnName="BlogMemberID" />
+          <ScalarProperty Name="BlogID" ColumnName="BlogID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tComment">
+      <EntityTypeMapping TypeName="SaveAnimalsModel.tComment">
+        <MappingFragment StoreEntitySet="tComment">
+          <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+          <ScalarProperty Name="CommentContent" ColumnName="CommentContent" />
+          <ScalarProperty Name="CommentRescueID" ColumnName="CommentRescueID" />
+          <ScalarProperty Name="CommentMemberID" ColumnName="CommentMemberID" />
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

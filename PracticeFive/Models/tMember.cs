@@ -17,9 +17,10 @@ namespace PracticeFive.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tMember()
         {
-            this.tBlog = new HashSet<tBlog>();
             this.tRescue = new HashSet<tRescue>();
             this.tTransfer = new HashSet<tTransfer>();
+            this.tBlog = new HashSet<tBlog>();
+            this.tComment = new HashSet<tComment>();
         }
     
         public int MemberID { get; set; }
@@ -29,10 +30,12 @@ namespace PracticeFive.Models
         public System.DateTime Created_At { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tBlog> tBlog { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tRescue> tRescue { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tTransfer> tTransfer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tBlog> tBlog { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tComment> tComment { get; set; }
     }
 }

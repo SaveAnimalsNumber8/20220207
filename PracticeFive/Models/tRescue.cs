@@ -15,7 +15,13 @@ namespace PracticeFive.Models
 
     public partial class tRescue
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tRescue()
+        {
+            this.tComment = new HashSet<tComment>();
+        }
         public HttpPostedFileBase upImg { get; set; }
+
         public int RescueID { get; set; }
         public int RescueMemberID { get; set; }
         public string RescueTitle { get; set; }
@@ -32,5 +38,7 @@ namespace PracticeFive.Models
         public virtual tPosition tPosition { get; set; }
         public virtual tPosition tPosition1 { get; set; }
         public virtual tSpecies tSpecies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tComment> tComment { get; set; }
     }
 }

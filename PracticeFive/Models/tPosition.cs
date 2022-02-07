@@ -20,6 +20,7 @@ namespace PracticeFive.Models
             this.tRescue = new HashSet<tRescue>();
             this.tRescue1 = new HashSet<tRescue>();
             this.tTransfer = new HashSet<tTransfer>();
+            this.tTransfer1 = new HashSet<tTransfer>();
         }
     
         public int positionID { get; set; }
@@ -32,5 +33,7 @@ namespace PracticeFive.Models
         public virtual ICollection<tRescue> tRescue1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tTransfer> tTransfer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tTransfer> tTransfer1 { get; set; }
     }
 }

@@ -165,6 +165,9 @@
     <Compile Include="Models\tBlog.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tComment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tMember.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

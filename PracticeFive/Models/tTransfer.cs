@@ -16,13 +16,14 @@ namespace PracticeFive.Models
     {
         public int TransferID { get; set; }
         public int TransferMemberID { get; set; }
-        public bool TransferDone { get; set; }
+        public string TransferDone { get; set; }
         public string TransferPictures { get; set; }
-        public int TransferPosition { get; set; }
-        public bool TransferGender { get; set; }
+        public int TransferPositionCity { get; set; }
+        public int TransferPositionCountry { get; set; }
+        public string TransferGender { get; set; }
         public string TransferName { get; set; }
         public int TransferSpecies { get; set; }
-        public bool TransferNeuter { get; set; }
+        public string TransferNeuter { get; set; }
         public string TransferSituation { get; set; }
         public string TransferRequest { get; set; }
         public string TransferContactWay { get; set; }
@@ -31,6 +32,7 @@ namespace PracticeFive.Models
     
         public virtual tMember tMember { get; set; }
         public virtual tPosition tPosition { get; set; }
+        public virtual tPosition tPosition1 { get; set; }
         public virtual tSpecies tSpecies { get; set; }
     }
 }

@@ -12,15 +12,15 @@ namespace PracticeFive.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tBlog
+    public partial class tComment
     {
-        public int BlogID { get; set; }
-        public int BlogMemberID { get; set; }
-        public string BlogCategory { get; set; }
-        public string BlogTitle { get; set; }
-        public string BlogContent { get; set; }
+        public int CommentID { get; set; }
+        public int CommentMemberID { get; set; }
+        public int CommentRescueID { get; set; }
+        public string CommentContent { get; set; }
         public System.DateTime Created_At { get; set; }
     
         public virtual tMember tMember { get; set; }
+        public virtual tRescue tRescue { get; set; }
     }
 }

@@ -25,11 +25,12 @@ namespace PracticeFive.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tBlog> tBlog { get; set; }
         public virtual DbSet<tMember> tMember { get; set; }
         public virtual DbSet<tPosition> tPosition { get; set; }
         public virtual DbSet<tRescue> tRescue { get; set; }
         public virtual DbSet<tSpecies> tSpecies { get; set; }
         public virtual DbSet<tTransfer> tTransfer { get; set; }
+        public virtual DbSet<tBlog> tBlog { get; set; }
+        public virtual DbSet<tComment> tComment { get; set; }
     }
 }

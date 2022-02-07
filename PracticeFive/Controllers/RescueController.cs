@@ -20,13 +20,15 @@ namespace PracticeFive.Controllers
         }
 
 
-        public ActionResult List()
+        public ActionResult List(string RescueTitlesearch)
         {
-            var rescueList = sadb.tRescue.OrderByDescending(sadb => sadb.Created_At).ToList();
-
-
-
+            var rescueList = from m in sadb.tRescue.OrderByDescending(sadb => sadb.Created_At) select m;
+            if (!string.IsNullOrEmpty(RescueTitlesearch))
+            {
+                rescueList = rescueList.Where(x => x.RescueTitle == RescueTitlesearch);
+            }
             return View(rescueList);
+
         }
 
 
