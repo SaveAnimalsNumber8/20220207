@@ -3,6 +3,13 @@
 @{
     ViewBag.Title = "More";
     Layout = "~/Views/Shared/_LayoutMember.cshtml";
+    var commentlist = new List<PracticeFive.Models.tComment>();
+    using (PracticeFive.Models.SaveAnimalsEntities sadb = new PracticeFive.Models.SaveAnimalsEntities())
+    {
+        commentlist = (from s in sadb.tComment
+                       where s.CommentRescueID == this.Model.RescueID
+                       select s).ToList();
+    }
 }
 
 <link href="~/Content/rescueMoreDetails.css" rel="stylesheet" />
@@ -30,14 +37,24 @@
             <div class="progressing mb-3">
                 <div class="messagebox">
                     @Html.DisplayFor(model => model.RescueProgress)
+                    @foreach (var comment in commentlist)
+                    {
+                        <div>
+                            @comment.CommentContent (@comment.Created_At)
+                        </div>
+                    }
                 </div>
-                <div class="input-group sendmessage">
-                    <input type="text" class="form-control" placeholder="回報進度"
-                           aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button">送出</button>
+                @using (Html.BeginForm("AddRescueComment", "RescueMember", FormMethod.Post))
+                {
+                    @Html.HiddenFor(m => m.RescueID)
+                    <div class="input-group sendmessage">
+                        <input type="text" name="Content" class="form-control" placeholder="回報進度"
+                               aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <input class="btn btn-outline-secondary" type="submit" value="送出">
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     </div>

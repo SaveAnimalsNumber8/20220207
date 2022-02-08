@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PracticeFive.Models;
+using PracticeFive.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,9 +57,8 @@ namespace PracticeFive.Controllers
             //selectList.Where(q => q.Value == "value-2").First().Selected = true;
 
             //ViewBag.SelectList = selectList;
-
-
-            pRescue.RescueTitle = Request.Form["selector"].ToString();
+            pRescue.RescueTitle = Request.Form["selectorTitle"];
+            pRescue.ResCueDone = Request.Form["selectorResCueDone"];
             pRescue.RescueMemberID = Convert.ToInt32(Session["UserID"]);
             pRescue.Created_At = DateTime.Now;
 
@@ -130,7 +130,8 @@ namespace PracticeFive.Controllers
             var rescueSpecies = sadb.tSpecies.ToList();
             ViewBag.Species = new SelectList(rescueSpecies, "SpeciesID", "SpeciesName");
 
-            pRescue.RescueTitle = Request.Form["selector"].ToString();
+            pRescue.RescueTitle = Request.Form["selectorTitle"];
+            pRescue.ResCueDone = Request.Form["selectorResCueDone"];
             pRescue.RescueMemberID = Convert.ToInt32(Session["UserID"]);
             pRescue.Created_At = DateTime.Now;
 
@@ -146,7 +147,7 @@ namespace PracticeFive.Controllers
             sadb.tRescue.Add(pRescue);
             sadb.SaveChanges();
 
-            return RedirectToAction("List", "Rescue");
+            return RedirectToAction("List", "RescueMember");
         }
 
 
@@ -157,18 +158,35 @@ namespace PracticeFive.Controllers
         }
 
 
-        public ActionResult More(int id)
+        public ActionResult More(int? id)
         {
             tRescue rescueDetails = sadb.tRescue.FirstOrDefault(p => p.RescueID == id);
 
             if (rescueDetails == null)
             {
-                return RedirectToAction("List", "Rescue");
+                return RedirectToAction("List", "RescueMember");
             }
             else
             {
                 return View(rescueDetails);
             }
+        }
+        [HttpPost]
+        public ActionResult AddRescueComment(AddRescueComment comment)
+        {
+            tRescue rescue = sadb.tRescue.FirstOrDefault(p => p.RescueID == comment.RescueID);
+
+            if (rescue != null)
+            {
+                tComment RescueComment = new tComment();
+                RescueComment.CommentContent = Request.Form["Content"];
+                RescueComment.CommentMemberID = Convert.ToInt32(Session["UserID"]);
+                RescueComment.CommentRescueID = rescue.RescueID;
+                RescueComment.Created_At = DateTime.Now;
+                sadb.tComment.Add(RescueComment);
+                sadb.SaveChanges();
+            }
+            return RedirectToAction("More", "RescueMember");
         }
     }
 }

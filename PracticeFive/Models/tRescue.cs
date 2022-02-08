@@ -20,13 +20,13 @@ namespace PracticeFive.Models
         {
             this.tComment = new HashSet<tComment>();
         }
-        public HttpPostedFileBase upImg { get; set; }
-
+    
         public int RescueID { get; set; }
         public int RescueMemberID { get; set; }
         public string RescueTitle { get; set; }
         public string ResCueDone { get; set; }
         public string RescuePictures { get; set; }
+        public HttpPostedFileBase upImg { get; set; }
         public int RescuePositionCity { get; set; }
         public int RescuePositionCountry { get; set; }
         public string RescueEvent { get; set; }

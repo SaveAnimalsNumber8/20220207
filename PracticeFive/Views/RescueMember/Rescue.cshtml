@@ -21,10 +21,11 @@
             @Html.LabelFor(model => model.RescueTitle, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*@Html.DropDownListFor(m => m.RescueTitle, (SelectList)ViewBag.SelectList, "請選擇", new { @class = "text-primary", @id = "City" })*@
-                <select id="selector" name="selector" style="">
-                    <option selected="selected" value="0">請選擇</option>
-                    <option value="1">尋獲</option>
-                    <option value="2">走失</option>
+                <select id="selector" name="selectorTitle" style="">
+                    <option selected="selected" value="請選擇">請選擇</option>
+                    <option value="尋獲">尋獲</option>
+                    <option value="協尋">協尋</option>
+                    <option value="救援">救援</option>
                 </select>
             </div>
         </div>
@@ -32,8 +33,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ResCueDone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ResCueDone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ResCueDone, "", new { @class = "text-danger" })
+                <select id="selector" name="selectorResCueDone" style="">
+                    <option selected="selected" value="請選擇">請選擇</option>
+                    <option value="未結案">未結案</option>
+                    <option value="已結案">已結案</option>
+                </select>
             </div>
         </div>
 

@@ -109,6 +109,11 @@
 .mb-10 {
     margin-bottom: 10px;
 }
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 @media all and (min-width: 1300px) {
   .header nav {
@@ -159,6 +164,7 @@
   .header nav .fa-bars {
     display: none;
   }
+
 }
 
 /*# sourceMappingURL=RescueList.css.map */

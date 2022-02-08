@@ -20,7 +20,7 @@
         <AssociationConnector Association="SaveAnimalsModel.FK__tTransfer__Trans__403A8C7D" />
         <EntityTypeShape EntityType="SaveAnimalsModel.tBlog" Width="1.5" PointX="3" PointY="6.125" />
         <AssociationConnector Association="SaveAnimalsModel.FK__tBlog__BlogMembe__33D4B598" />
-        <EntityTypeShape EntityType="SaveAnimalsModel.tComment" Width="1.5" PointX="8.25" PointY="6.25" />
+        <EntityTypeShape EntityType="SaveAnimalsModel.tComment" Width="1.5" PointX="9.375" PointY="10.75" />
         <AssociationConnector Association="SaveAnimalsModel.FK__tComment__Commen__49C3F6B7" />
         <AssociationConnector Association="SaveAnimalsModel.FK__tComment__Commen__4AB81AF0" />
         </Diagram>

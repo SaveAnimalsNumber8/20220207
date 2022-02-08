@@ -3,13 +3,14 @@
 @{
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <div class="searchNav">
     @using (Html.BeginForm())
     {
         <p>
-            案件種類: @Html.DropDownList("RescueTitlesearch", new SelectList(new string[] { "尋獲", "走失" }))
+            案件種類: @Html.DropDownList("RescueTitlesearch", new SelectList(new string[] { "尋獲", "協尋","救援" }))
             <input type="submit" value="搜尋" />
         </p>
     }
@@ -18,26 +19,38 @@
     <div class="ListContent d-flex flex-wrap">
         @foreach (var item in Model)
         {
-            <div class="card col-xl-3 col-md-4 col-sm-6 p-3">
-                <div class="title mb-10">
-                    @*<h2>@Html.DisplayFor(modelItem => item.RescueID)</h2>*@
-                        @switch (item.RescueTitle)
-                        {
-                        case "尋獲": <h2>尋獲</h2>
+        <div class="card col-xl-3 col-md-4 col-sm-6 p-3">
+            <div class="title mb-10">
+                @*<h2>@Html.DisplayFor(modelItem => item.RescueID)</h2>*@
+                @switch (item.RescueTitle)
+                {
+                    case "尋獲":<h2>尋獲</h2>
                         break;
-                        case "走失": <h2>走失</h2>
+                    case "協尋": <h2>協尋</h2>
                         break;
-                        }
-                </div>
-                <div class="pic mb-10"><img src="~/UpImg/@Html.DisplayFor(modelItem => item.RescuePictures)" alt=""></div>
-                <div class="content mb-10">
-                    <h3 class="position mb-10">@Html.DisplayFor(modelItem => item.tPosition.positionPosition)</h3>
-                    <h3 class="position mb-10">@Html.DisplayFor(modelItem => item.tPosition1.positionPosition)</h3>
-                    <p class="event mb-10">@Html.DisplayFor(modelItem => item.RescueEvent)</p>
-                    <p class="time mb-10">@Html.DisplayFor(modelItem => item.Created_At)</p>
-                </div>
-                @Html.ActionLink("更多資訊", "More", new { id = item.RescueID })
+                    case "救援": <h2>救援</h2>
+                        break;
+                }
             </div>
+            <!--<div class="title mb-10">-->
+                @*<h2>@Html.DisplayFor(modelItem => item.RescueID)</h2>*@
+                <!--@switch (item.ResCueDone)
+                {
+                    case "未結案":<h2>未結案</h2>
+                        break;
+                    case "已結案": <h2>已結案</h2>
+                        break;
+                }
+            </div>-->
+            <div class="pic mb-10"><img src="~/UpImg/@Html.DisplayFor(modelItem => item.RescuePictures)" alt=""></div>
+            <div class="content mb-10">
+                <h3 class="position mb-10">@Html.DisplayFor(modelItem => item.tPosition.positionPosition)</h3>
+                <h3 class="position mb-10">@Html.DisplayFor(modelItem => item.tPosition1.positionPosition)</h3>
+                <p class="event mb-10 ellipsis">@Html.DisplayFor(modelItem => item.RescueEvent)</p>
+                <p class="time mb-10">@Html.DisplayFor(modelItem => item.Created_At)</p>
+            </div>
+            @Html.ActionLink("更多資訊", "More", new { id = item.RescueID })
+        </div>
         }
     </div>
 </div>
