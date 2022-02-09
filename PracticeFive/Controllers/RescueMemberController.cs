@@ -61,20 +61,20 @@ namespace PracticeFive.Controllers
             pRescue.ResCueDone = Request.Form["selectorResCueDone"];
             pRescue.RescueMemberID = Convert.ToInt32(Session["UserID"]);
             pRescue.Created_At = DateTime.Now;
-
+            string fileName = "";
             if (pRescue.upImg != null && pRescue.upImg.ContentLength > 0)
             {
-                var fileName = Path.GetFileName(pRescue.upImg.FileName);
+                fileName = DateTime.Now.ToString("yyMMdd") + pRescue.upImg.FileName;
                 var path = Path.Combine(Server.MapPath("~/UpImg"), fileName);
                 pRescue.upImg.SaveAs(path);
             }
 
-            pRescue.RescuePictures = pRescue.upImg.FileName;
+            pRescue.RescuePictures = fileName;
             //Debug.WriteLine(pRescue.RescuePosition);
             //Debug.WriteLine(pRescue.RescueSpecies);
             sadb.tRescue.Add(pRescue);
             sadb.SaveChanges();
-            return View();
+            return RedirectToAction("List", "RescueMember");
         }
 
         [HttpPost]
@@ -137,16 +137,18 @@ namespace PracticeFive.Controllers
 
             if (pRescue.upImg != null && pRescue.upImg.ContentLength > 0)
             {
-                var fileName = Path.GetFileName(pRescue.upImg.FileName);
-                var path = Path.Combine(Server.MapPath("~/UpImg"), fileName);
-                pRescue.upImg.SaveAs(path);
+            string fileName = "";
+            fileName = DateTime.Now.ToString("yyMMdd") + pRescue.upImg.FileName;
+            var path = Path.Combine(Server.MapPath("~/UpImg"), fileName);
+             pRescue.upImg.SaveAs(path);
+                pRescue.RescuePictures = fileName;
             }
-
-            pRescue.RescuePictures = pRescue.upImg.FileName;
-
-            sadb.tRescue.Add(pRescue);
+            else
+            {
+             pRescue.RescuePictures = pRescue.RescuePictures;
+            }
+            sadb.Entry(pRescue).State = System.Data.Entity.EntityState.Modified;
             sadb.SaveChanges();
-
             return RedirectToAction("List", "RescueMember");
         }
 
@@ -174,19 +176,31 @@ namespace PracticeFive.Controllers
         [HttpPost]
         public ActionResult AddRescueComment(AddRescueComment comment)
         {
-            tRescue rescue = sadb.tRescue.FirstOrDefault(p => p.RescueID == comment.RescueID);
+            tRescue rescuecomment = sadb.tRescue.FirstOrDefault(p => p.RescueID == comment.RescueID);
 
-            if (rescue != null)
+            if (rescuecomment != null)
             {
                 tComment RescueComment = new tComment();
                 RescueComment.CommentContent = Request.Form["Content"];
                 RescueComment.CommentMemberID = Convert.ToInt32(Session["UserID"]);
-                RescueComment.CommentRescueID = rescue.RescueID;
+                RescueComment.CommentRescueID = rescuecomment.RescueID;
                 RescueComment.Created_At = DateTime.Now;
                 sadb.tComment.Add(RescueComment);
                 sadb.SaveChanges();
             }
             return RedirectToAction("More", "RescueMember");
+            //TODO:無法顯示回原本的這筆More
+        }
+
+        public ActionResult Delete(int id)
+        {
+            tRescue rescueDelete = sadb.tRescue.FirstOrDefault(p => p.RescueID == id);
+            if (rescueDelete != null)
+            {
+                sadb.tRescue.Remove(rescueDelete);
+                sadb.SaveChanges();
+            }
+            return RedirectToAction("List", "RescueMember");
         }
     }
 }
