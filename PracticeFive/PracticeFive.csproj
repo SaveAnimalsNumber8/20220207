@@ -185,6 +185,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AddRescueComment.cs" />
+    <Compile Include="ViewModel\AddtoTracelist.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

@@ -63,7 +63,7 @@
 @if (Convert.ToInt32(Session["UserID"]) == Model.RescueMemberID)
 {
 <p>@Html.ActionLink("編輯", "Edit", "RescueMember", new { id = Model.RescueID }, null)</p>
-<p>@Html.ActionLink("刪除", "Delete", "RescueMember", new { id = Model.RescueID }, null)</p>
+<p>@Html.ActionLink("刪除", "Delete", "RescueMember", new { id = Model.RescueID }, new { onclick = "return confirm('確定要刪除嗎?')"})</p>
 }
 
 <p>
