@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using PracticeFive.Models;
-using PracticeFive.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -17,7 +17,7 @@ namespace PracticeFive.Controllers
         // GET: Rescue
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Member");
         }
 
         public ActionResult Rescue()
@@ -57,24 +57,25 @@ namespace PracticeFive.Controllers
             //selectList.Where(q => q.Value == "value-2").First().Selected = true;
 
             //ViewBag.SelectList = selectList;
-            pRescue.RescueTitle = Request.Form["selectorTitle"];
-            pRescue.ResCueDone = Request.Form["selectorResCueDone"];
+
+
+            pRescue.RescueTitle = Request.Form["selector"].ToString();
             pRescue.RescueMemberID = Convert.ToInt32(Session["UserID"]);
             pRescue.Created_At = DateTime.Now;
-            string fileName = "";
+
             if (pRescue.upImg != null && pRescue.upImg.ContentLength > 0)
             {
-                fileName = DateTime.Now.ToString("yyMMdd") + pRescue.upImg.FileName;
+                var fileName = Path.GetFileName(pRescue.upImg.FileName);
                 var path = Path.Combine(Server.MapPath("~/UpImg"), fileName);
                 pRescue.upImg.SaveAs(path);
             }
 
-            pRescue.RescuePictures = fileName;
+            pRescue.RescuePictures = pRescue.upImg.FileName;
             //Debug.WriteLine(pRescue.RescuePosition);
             //Debug.WriteLine(pRescue.RescueSpecies);
             sadb.tRescue.Add(pRescue);
             sadb.SaveChanges();
-            return RedirectToAction("List", "RescueMember");
+            return View();
         }
 
         [HttpPost]
@@ -130,25 +131,25 @@ namespace PracticeFive.Controllers
             var rescueSpecies = sadb.tSpecies.ToList();
             ViewBag.Species = new SelectList(rescueSpecies, "SpeciesID", "SpeciesName");
 
-            pRescue.RescueTitle = Request.Form["selectorTitle"];
-            pRescue.ResCueDone = Request.Form["selectorResCueDone"];
+            pRescue.RescueTitle = Request.Form["selector"].ToString();
             pRescue.RescueMemberID = Convert.ToInt32(Session["UserID"]);
             pRescue.Created_At = DateTime.Now;
 
             if (pRescue.upImg != null && pRescue.upImg.ContentLength > 0)
             {
-            string fileName = "";
-            fileName = DateTime.Now.ToString("yyMMdd") + pRescue.upImg.FileName;
-            var path = Path.Combine(Server.MapPath("~/UpImg"), fileName);
-             pRescue.upImg.SaveAs(path);
-                pRescue.RescuePictures = fileName;
+                var fileName = Path.GetFileName(pRescue.upImg.FileName);
+                var path = Path.Combine(Server.MapPath("~/UpImg"), fileName);
+                pRescue.upImg.SaveAs(path);
+                pRescue.RescuePictures = pRescue.upImg.FileName;            
             }
             else
             {
-             pRescue.RescuePictures = pRescue.RescuePictures;
+                pRescue.RescuePictures = pRescue.RescuePictures;
             }
+
             sadb.Entry(pRescue).State = System.Data.Entity.EntityState.Modified;
             sadb.SaveChanges();
+
             return RedirectToAction("List", "RescueMember");
         }
 
@@ -160,47 +161,18 @@ namespace PracticeFive.Controllers
         }
 
 
-        public ActionResult More(int? id)
+        public ActionResult More(int id)
         {
             tRescue rescueDetails = sadb.tRescue.FirstOrDefault(p => p.RescueID == id);
 
             if (rescueDetails == null)
             {
-                return RedirectToAction("List", "RescueMember");
+                return RedirectToAction("List", "Rescue");
             }
             else
             {
                 return View(rescueDetails);
             }
-        }
-        [HttpPost]
-        public ActionResult AddRescueComment(AddRescueComment comment)
-        {
-            tRescue rescuecomment = sadb.tRescue.FirstOrDefault(p => p.RescueID == comment.RescueID);
-
-            if (rescuecomment != null)
-            {
-                tComment RescueComment = new tComment();
-                RescueComment.CommentContent = Request.Form["Content"];
-                RescueComment.CommentMemberID = Convert.ToInt32(Session["UserID"]);
-                RescueComment.CommentRescueID = rescuecomment.RescueID;
-                RescueComment.Created_At = DateTime.Now;
-                sadb.tComment.Add(RescueComment);
-                sadb.SaveChanges();
-            }
-            return RedirectToAction("More", "RescueMember");
-            //TODO:無法顯示回原本的這筆More
-        }
-
-        public ActionResult Delete(int id)
-        {
-            tRescue rescueDelete = sadb.tRescue.FirstOrDefault(p => p.RescueID == id);
-            if (rescueDelete != null)
-            {
-                sadb.tRescue.Remove(rescueDelete);
-                sadb.SaveChanges();
-            }
-            return RedirectToAction("List", "RescueMember");
         }
     }
 }

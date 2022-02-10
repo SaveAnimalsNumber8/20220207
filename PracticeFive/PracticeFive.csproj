@@ -106,6 +106,7 @@
     <Content Include="Content\rescueMoreDetails.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\SubPageLayoutVer2.css" />
+    <Content Include="Content\TransferCard.css" />
     <Content Include="Global.asax" />
     <Content Include="Img\1.jpg" />
     <Content Include="Img\2.jpg" />
@@ -144,6 +145,8 @@
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\RescueController.cs" />
     <Compile Include="Controllers\RescueMemberController.cs" />
+    <Compile Include="Controllers\TransferController.cs" />
+    <Compile Include="Controllers\TransferMemberController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -211,6 +214,8 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\RescueMember\Rescue.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Transfer\List.cshtml" />
+    <Content Include="Views\Transfer\More.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -220,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\TransferMember\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

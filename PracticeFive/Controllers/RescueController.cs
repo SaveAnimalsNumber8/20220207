@@ -16,13 +16,21 @@ namespace PracticeFive.Controllers
         // GET: Rescue
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
 
         public ActionResult List(string RescueTitlesearch)
         {
+            var rescueTitleCatageory = from d in sadb.tRescue select d.RescueTitle;
+            var rescueTitleList = new List<string>();
+
+            rescueTitleList.AddRange(rescueTitleCatageory.Distinct());
+            ViewBag.rescueTitleList = rescueTitleList;
+
+
             var rescueList = from m in sadb.tRescue.OrderByDescending(sadb => sadb.Created_At) select m;
+
             if (!string.IsNullOrEmpty(RescueTitlesearch))
             {
                 rescueList = rescueList.Where(x => x.RescueTitle == RescueTitlesearch);
