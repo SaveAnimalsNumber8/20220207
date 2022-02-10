@@ -25,7 +25,7 @@ namespace PracticeFive.Controllers
         {
             var rescuePositionCity = sadb.tPosition.Where(m => m.positionBelong == 0).ToList();
             ViewBag.City = new SelectList(rescuePositionCity, "positionID", "positionPosition");
-            
+
             var rescuePositionCountry = sadb.tPosition.Where(m => m.positionBelong != 0).ToList();
             ViewBag.Country = new SelectList(rescuePositionCountry, "positionID", "positionPosition");
 
@@ -141,7 +141,7 @@ namespace PracticeFive.Controllers
                 var fileName = Path.GetFileName(pRescue.upImg.FileName);
                 var path = Path.Combine(Server.MapPath("~/UpImg"), fileName);
                 pRescue.upImg.SaveAs(path);
-                pRescue.RescuePictures = pRescue.upImg.FileName;            
+                pRescue.RescuePictures = pRescue.upImg.FileName;
             }
             else
             {
@@ -175,48 +175,6 @@ namespace PracticeFive.Controllers
                 return View(rescueDetails);
             }
         }
-<<<<<<< Updated upstream
-=======
-        [HttpPost]
-        public ActionResult AddRescueComment(AddRescueComment comment)
-        {
-            tRescue rescuecomment = sadb.tRescue.FirstOrDefault(p => p.RescueID == comment.RescueID);
 
-            if (rescuecomment != null)
-            {
-                tComment RescueComment = new tComment();
-                RescueComment.CommentContent = Request.Form["Content"];
-                RescueComment.CommentMemberID = Convert.ToInt32(Session["UserID"]);
-                RescueComment.CommentRescueID = rescuecomment.RescueID;
-                RescueComment.Created_At = DateTime.Now;
-                sadb.tComment.Add(RescueComment);
-                sadb.SaveChanges();
-            }
-            return RedirectToAction("More", "RescueMember");
-            //TODO:無法顯示回原本的這筆More
-        }
-
-        public ActionResult Delete(int id)
-        {
-            tRescue rescueDelete = sadb.tRescue.FirstOrDefault(p => p.RescueID == id);
-            if (rescueDelete != null)
-            {
-                sadb.tRescue.Remove(rescueDelete);
-                sadb.SaveChanges();
-            }
-            return RedirectToAction("List", "RescueMember");
-        }
-
-        public ActionResult AddtoFollowrescue(int id)
-        {
-            tRescue rescue = sadb.tRescue.FirstOrDefault(p => p.RescueID == id);
-            if (rescue != null)
-            {
-                sadb.FollowRescue.Add(new FollowRescue() { FollowMemberID = Convert.ToInt32(Session["UserID"]), FollowResue = id });
-            }
-            sadb.SaveChanges();
-            return RedirectToAction("List", "RescueMember");
-        }
->>>>>>> Stashed changes
     }
 }

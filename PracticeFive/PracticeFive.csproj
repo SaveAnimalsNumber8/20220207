@@ -146,12 +146,9 @@
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\RescueController.cs" />
     <Compile Include="Controllers\RescueMemberController.cs" />
-<<<<<<< Updated upstream
     <Compile Include="Controllers\TransferController.cs" />
     <Compile Include="Controllers\TransferMemberController.cs" />
-=======
     <Compile Include="Controllers\TraceListMemberController.cs" />
->>>>>>> Stashed changes
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -222,13 +219,12 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\RescueMember\Rescue.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
-<<<<<<< Updated upstream
+
     <Content Include="Views\Transfer\List.cshtml" />
     <Content Include="Views\Transfer\More.cshtml" />
-=======
+
     <Content Include="Views\TraceListMember\TraceList.cshtml" />
     <Content Include="Views\TraceListMember\rescueTracelist.cshtml" />
->>>>>>> Stashed changes
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
