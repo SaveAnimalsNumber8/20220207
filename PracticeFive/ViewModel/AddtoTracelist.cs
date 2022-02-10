@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,9 +11,12 @@ namespace PracticeFive.ViewModel
         public int RescueID { get; set; }
         public int TransferID { get; set; }
         public int FollowMemberID { get; set; }
+        public int FollowID { get; set; }
     }
     public class TracelistViewModel
     {
+        public int FollowID { get; set; }
+        public int FollowMemberID { get; set; }
         public int RescueID { get; set; }
         public int TransferID { get; set; }
         public string RescueEvent { get; set; }

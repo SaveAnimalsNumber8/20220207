@@ -65,6 +65,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -145,10 +146,17 @@
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\RescueController.cs" />
     <Compile Include="Controllers\RescueMemberController.cs" />
+<<<<<<< Updated upstream
     <Compile Include="Controllers\TransferController.cs" />
     <Compile Include="Controllers\TransferMemberController.cs" />
+=======
+    <Compile Include="Controllers\TraceListMemberController.cs" />
+>>>>>>> Stashed changes
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FollowRescue.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -214,8 +222,13 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\RescueMember\Rescue.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
+<<<<<<< Updated upstream
     <Content Include="Views\Transfer\List.cshtml" />
     <Content Include="Views\Transfer\More.cshtml" />
+=======
+    <Content Include="Views\TraceListMember\TraceList.cshtml" />
+    <Content Include="Views\TraceListMember\rescueTracelist.cshtml" />
+>>>>>>> Stashed changes
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

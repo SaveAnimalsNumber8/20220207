@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Forms;
 
 namespace PracticeFive.Controllers
 {
@@ -174,5 +175,48 @@ namespace PracticeFive.Controllers
                 return View(rescueDetails);
             }
         }
+<<<<<<< Updated upstream
+=======
+        [HttpPost]
+        public ActionResult AddRescueComment(AddRescueComment comment)
+        {
+            tRescue rescuecomment = sadb.tRescue.FirstOrDefault(p => p.RescueID == comment.RescueID);
+
+            if (rescuecomment != null)
+            {
+                tComment RescueComment = new tComment();
+                RescueComment.CommentContent = Request.Form["Content"];
+                RescueComment.CommentMemberID = Convert.ToInt32(Session["UserID"]);
+                RescueComment.CommentRescueID = rescuecomment.RescueID;
+                RescueComment.Created_At = DateTime.Now;
+                sadb.tComment.Add(RescueComment);
+                sadb.SaveChanges();
+            }
+            return RedirectToAction("More", "RescueMember");
+            //TODO:無法顯示回原本的這筆More
+        }
+
+        public ActionResult Delete(int id)
+        {
+            tRescue rescueDelete = sadb.tRescue.FirstOrDefault(p => p.RescueID == id);
+            if (rescueDelete != null)
+            {
+                sadb.tRescue.Remove(rescueDelete);
+                sadb.SaveChanges();
+            }
+            return RedirectToAction("List", "RescueMember");
+        }
+
+        public ActionResult AddtoFollowrescue(int id)
+        {
+            tRescue rescue = sadb.tRescue.FirstOrDefault(p => p.RescueID == id);
+            if (rescue != null)
+            {
+                sadb.FollowRescue.Add(new FollowRescue() { FollowMemberID = Convert.ToInt32(Session["UserID"]), FollowResue = id });
+            }
+            sadb.SaveChanges();
+            return RedirectToAction("List", "RescueMember");
+        }
+>>>>>>> Stashed changes
     }
 }

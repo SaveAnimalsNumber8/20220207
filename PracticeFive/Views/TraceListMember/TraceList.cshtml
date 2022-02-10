@@ -1,0 +1,49 @@
+﻿@*@model IEnumerable<PracticeFive.Models.FollowRescue>*@
+
+
+@{
+    ViewBag.Title = "TraceList";
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+@model IEnumerable<PracticeFive.ViewModel.TracelistViewModel>
+
+<h2>TraceList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        @*<th>
+                @Html.DisplayNameFor(model => model.FollowID)
+            </th>*@
+        @*<th>
+                @Html.DisplayNameFor(model => model.FollowMemberID)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.RescueEvent)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.RescueID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FollowMemberID)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.RescueEvent)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "DeleteFollow", new { id = item.FollowID}, new { onclick = "return confirm('確定要刪除嗎?')" }))
+            </td>
+        </tr>
+    }
+
+</table>

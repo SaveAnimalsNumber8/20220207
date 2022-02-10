@@ -90,5 +90,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="FollowRescue">
+      <EntityTypeMapping TypeName="SaveAnimalsModel.FollowRescue">
+        <MappingFragment StoreEntitySet="FollowRescue">
+          <ScalarProperty Name="FollowResue" ColumnName="FollowResue" />
+          <ScalarProperty Name="FollowMemberID" ColumnName="FollowMemberID" />
+          <ScalarProperty Name="FollowID" ColumnName="FollowID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
