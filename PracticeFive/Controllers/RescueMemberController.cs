@@ -2,6 +2,7 @@
 using PracticeFive.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,7 @@ namespace PracticeFive.Controllers
         // GET: Rescue
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Member");
         }
 
         public ActionResult Rescue()
@@ -139,14 +140,17 @@ namespace PracticeFive.Controllers
                 var fileName = Path.GetFileName(pRescue.upImg.FileName);
                 var path = Path.Combine(Server.MapPath("~/UpImg"), fileName);
                 pRescue.upImg.SaveAs(path);
+                pRescue.RescuePictures = pRescue.upImg.FileName;            
+            }
+            else
+            {
+                pRescue.RescuePictures = pRescue.RescuePictures;
             }
 
-            pRescue.RescuePictures = pRescue.upImg.FileName;
-
-            sadb.tRescue.Add(pRescue);
+            sadb.Entry(pRescue).State = System.Data.Entity.EntityState.Modified;
             sadb.SaveChanges();
 
-            return RedirectToAction("List", "Rescue");
+            return RedirectToAction("List", "RescueMember");
         }
 
 
