@@ -31,7 +31,9 @@ namespace PracticeFive.Controllers
             //var member = sadb.tMember
             //    .Where(m => m.MemberAccount == MemberAccount && m.MemberPassword == MemberPassword)
             //    .FirstOrDefault();
-            var member = sadb.tMember.FirstOrDefault(m => m.MemberAccount == MemberAccount && m.MemberPassword == MemberPassword);
+            var member = sadb.tMember
+                .Where(m => m.MemberAccount == MemberAccount && m.MemberPassword == MemberPassword)
+                .FirstOrDefault();
                 
             //若member為null，表示會員未註冊
             if (member == null)
