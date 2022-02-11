@@ -52,6 +52,7 @@ namespace PracticeFive.Controllers
             if (ModelState.IsValid)
             {
                 tBlog.Created_At = DateTime.Now;
+                tBlog.BlogMemberID = Convert.ToInt32(Session["UserID"]);
                 db.tBlog.Add(tBlog);
                 db.SaveChanges();
                 return RedirectToAction("List");
