@@ -28,16 +28,20 @@ namespace PracticeFive.Controllers
         public ActionResult Login(string MemberAccount, string MemberPassword)
         {
             // 依帳密取得會員並指定給member
-            var member = sadb.tMember
-                .Where(m => m.MemberAccount == MemberAccount && m.MemberPassword == MemberPassword)
-                .FirstOrDefault();
+            //var member = sadb.tMember
+            //    .Where(m => m.MemberAccount == MemberAccount && m.MemberPassword == MemberPassword)
+            //    .FirstOrDefault();
+            var member = sadb.tMember.FirstOrDefault(m => m.MemberAccount == MemberAccount && m.MemberPassword == MemberPassword);
+                
             //若member為null，表示會員未註冊
             if (member == null)
             {
                 return Content("<script>alert('帳密錯誤');history.go(-1);</script>");
             }
             //使用Session變數記錄歡迎詞
+            
             Session["UserID"] = member.MemberID;
+            Session["UserName"] = member.MemberName;
             FormsAuthentication.RedirectFromLoginPage(MemberAccount, true);
             return RedirectToAction("Index", "Member");
         }

@@ -22,8 +22,16 @@
                 <li>
                     @Html.ActionLink("救援通報", "List", "Rescue")
                     <ul class="subs">
-                        <li class="submenu">@Html.ActionLink("我要通報", "Login", "Home")</li>
-                        <li class="submenu">@Html.ActionLink("我要救援", "List", "Rescue")</li>
+                        @if (Session["UserID"] == null)
+                        {
+                            <li class="submenu">@Html.ActionLink("我要通報", "Login", "Home")</li>
+                            <li class="submenu">@Html.ActionLink("我要救援", "List", "Rescue")</li>
+                        }
+                        else
+                        {
+                            <li class="submenu">@Html.ActionLink("我要通報", "Rescue", "RescueMember")</li>
+                            <li class="submenu">@Html.ActionLink("我要救援", "List", "RescueMember")</li>
+                        }
                     </ul>
                 </li>
                 <li>
@@ -41,10 +49,26 @@
                     </ul>
                 </li>
                 <li>@Html.ActionLink("聯絡我們", "ContactUs", "Home")</li>
-                <li>
-                    @Html.ActionLink("會員專區", "Login", "Home")
-                </li>
-            </ul>
+                
+                    @if (Session["UserID"] == null)
+                    {
+                     <li>@Html.ActionLink("會員專區", "Login", "Home")</li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink("會員專區", "Profilo", "Member")
+                            <ul class="subs">
+                                <li class="submenu">@Html.ActionLink("基本資料", "Profilo", "Member")</li>
+                                <li class="submenu">@Html.ActionLink("通報清單", "RescueList", "Member")</li>
+                                <li class="submenu">@Html.ActionLink("送養清單", "TransferList", "Member")</li>
+                                <li class="submenu">@Html.ActionLink("追蹤清單", "TraceList", "Member")</li>
+                                <li class="submenu">@Html.ActionLink("登出", "LogOut", "Member")</li>
+                            </ul>
+                        </li>
+                     }               
+                    
+                </ul>
 
             <i class="fas fa-bars"></i>
         </nav>

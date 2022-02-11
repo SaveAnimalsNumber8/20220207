@@ -12,12 +12,13 @@ namespace PracticeFive.Controllers
         // GET: Member
         public ActionResult Index()
         {
-            return View("Index", "_IndexMember");
+            return View("Index", "_IndexVer2");
         }
 
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
 

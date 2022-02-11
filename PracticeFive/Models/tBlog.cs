@@ -11,13 +11,15 @@ namespace PracticeFive.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tBlog
     {
         public int BlogID { get; set; }
         public int BlogMemberID { get; set; }
         public string BlogCategory { get; set; }
         public string BlogTitle { get; set; }
+        [DataType(DataType.MultilineText)]
         public string BlogContent { get; set; }
         public System.DateTime Created_At { get; set; }
     
