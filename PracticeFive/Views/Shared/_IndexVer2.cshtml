@@ -9,10 +9,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.H.E.　為毛孩找個家.</title>
+    <title>S.H.E. 為毛孩找個家.</title>
     <link rel="stylesheet" href="~/Content/indexVer2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <!-------------------- Nav Section ------------------->
     <section class="header">
@@ -62,12 +63,47 @@
 
     <!-- about section -->
     <section class="about">
-        @RenderBody();
+        @RenderBody()      
+    </section>
+
+    <!-- footer section -->
+    <section class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-left">
+                    <p>網站運行相關問題，請透過客服信箱詢問。</p>
+                </div>
+                <div class="col-md-4 text-left">
+                    <h4>聯絡我們</h4>
+                    <p>
+                        高雄市中正四路211號8樓之1<br>
+                        Phone: 07 969 9885<br>
+                        E-Mail: <a href='mailto:SHE.animals@gmail.com'>SHE.animals@gmail.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </section>
 
 
     <script src="~/Scripts/jquery-3.6.0.min.js"></script>
     <script src="~/Scripts/indexVer2.js"></script>
+
+    <button type="button" id="BackTop" class="toTop-arrow"></button>
+    <script>
+        $(function () {
+            $('#BackTop').click(function () {
+                $('html,body').animate({ scrollTop: 0 }, 333);
+            });
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 300) {
+                    $('#BackTop').fadeIn(222);
+                } else {
+                    $('#BackTop').stop().fadeOut(222);
+                }
+            }).scroll();
+        });
+    </script>
 </body>
 </html>
 

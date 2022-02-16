@@ -89,6 +89,7 @@
 
 .header .text-box {
   text-align: center;
+  padding: 50px;
 }
 
 .header .text-box h1 {
@@ -116,6 +117,74 @@
   background-color: #698f6d;
   padding: 20px;
   letter-spacing: 2px;
+  margin:10px
+}
+
+.about {
+    background-color: rgba(243, 240, 215,0.5);
+    background-size: cover;
+    position: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.about .container .row h2 {
+    font-size: 45px;
+    padding: 20px;
+    padding-top: 50px;
+    text-align: center;
+}
+
+.about .innertext{
+    bottom: 24px;
+    left:24px;
+}
+
+.footer {
+    background-color: rgba(243, 240, 215,0.5);
+    background-size: cover;
+    position: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.toTop-arrow {
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 50%;
+    opacity: 0.6;
+    background: #F3F0D7;
+    cursor: pointer;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    display: none;
+}
+
+.toTop-arrow::before, .toTop-arrow::after {
+    width: 25px;
+    height: 6px;
+    border-radius: 3px;
+    background: #5E454B;
+    position: absolute;
+    content: "";
+}
+
+.toTop-arrow::before {
+    transform: rotate(-45deg) translate(0, -50%);
+    left: 0.42rem;
+}
+
+.toTop-arrow::after {
+    transform: rotate(45deg) translate(0, -50%);
+    right: 0.42rem;
+}
+
+.toTop-arrow:focus {
+    outline: none;
 }
 
 @media all and (min-width: 600px) {
