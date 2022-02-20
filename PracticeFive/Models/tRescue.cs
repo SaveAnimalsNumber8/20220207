@@ -19,6 +19,7 @@ namespace PracticeFive.Models
         public tRescue()
         {
             this.tComment = new HashSet<tComment>();
+            this.FollowRescue = new HashSet<FollowRescue>();
         }
         public HttpPostedFileBase upImg { get; set; }
         public int RescueID { get; set; }
@@ -39,5 +40,7 @@ namespace PracticeFive.Models
         public virtual tSpecies tSpecies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tComment> tComment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FollowRescue> FollowRescue { get; set; }
     }
 }

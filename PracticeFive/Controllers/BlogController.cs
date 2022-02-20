@@ -1,4 +1,5 @@
 ﻿using PracticeFive.Models;
+using PracticeFive.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,24 +15,85 @@ namespace PracticeFive.Controllers
          SaveAnimalsEntities db = new SaveAnimalsEntities();
 
         // GET: tBlogs
-        public ActionResult List()
+        public ActionResult List(string type)
         {
+            List<int> likeList = new List<int>();
+            if (Session["UserID"] != null)
+            {
+                int userid = Convert.ToInt32(Session["UserID"]);
+                likeList = db.tBlog.Join(db.CollectBlog.Where(x => x.CollectMemberID == userid),
+                    x => x.BlogID,
+                    c => c.CollectBlogID,
+                    (x, c) => x.BlogID).ToList();
+            }
+
+            string keyword = Request.Form["Keyword"];
+            Console.WriteLine(keyword);
+
             var tBlog = db.tBlog.Include(t => t.tMember);
-            return View(tBlog.ToList());
+
+
+
+            if (!string.IsNullOrEmpty(type))
+            {
+                tBlog = tBlog.Where(x => x.BlogCategory == type);
+            }
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                tBlog = tBlog.Where(x => x.BlogCategory.Contains(keyword) ||
+                x.BlogTitle.Contains(keyword) ||
+                x.BlogContent.Contains(keyword) ||
+                x.tMember.MemberName.Contains(keyword));
+            }
+
+
+            IQueryable<BlogListViewModel> resourtList = tBlog.Select(x => new BlogListViewModel
+            {
+                Created_At = x.Created_At,
+                BlogCategory = x.BlogCategory,
+                BlogContent = x.BlogContent,
+                BlogMemberID = x.BlogMemberID,
+                BlogTitle = x.BlogTitle,
+                BlogID = x.BlogID,
+                tMember = x.tMember,
+                likes = likeList.FirstOrDefault(c => c == x.BlogID) == 0 ? false : true
+
+            });
+
+            return View(resourtList.OrderByDescending(x => x.Created_At).ToList());
         }
 
         // GET: tBlogs/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string type)
         {
-            if (id == null)
+            BlogDetailViewModel tBlog = new BlogDetailViewModel();
+            if (type == "Add")
+            {
+                tBlog.BlogMemberName = Session["UserName"].ToString();
+                tBlog.BlogMemberID = Convert.ToInt32(Session["UserID"]);
+            }
+            else if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tBlog tBlog = db.tBlog.Find(id);
-            if (tBlog == null)
+            else
             {
-                return HttpNotFound();
+                tBlog = db.tBlog.Include(t => t.tMember).Where(x=>x.BlogID == id).Select(x=>new BlogDetailViewModel {
+                    BlogMemberName = x.tMember.MemberName,
+                    BlogMemberID = x.BlogMemberID,
+                    Created_At = x.Created_At,
+                    BlogCategory = x.BlogCategory,
+                    BlogContent = x.BlogContent,
+                    BlogTitle = x.BlogTitle,
+                }).FirstOrDefault();
+                if (tBlog == null)
+                {
+                    return HttpNotFound();
+                }
             }
+
+            ViewBag.action = type;
             return View(tBlog);
         }
 
@@ -47,7 +109,7 @@ namespace PracticeFive.Controllers
         // 詳細資訊，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BlogID,BlogMemberID,BlogCategory,BlogTitle,BlogContent,Created_At")] tBlog tBlog)
+        public ActionResult Create(tBlog tBlog)
         {
             if (ModelState.IsValid)
             {
@@ -97,25 +159,7 @@ namespace PracticeFive.Controllers
             return View(tBlog);
         }
 
-        // GET: tBlogs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tBlog tBlog = db.tBlog.Find(id);
-            if (tBlog == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tBlog);
-        }
-
-        // POST: tBlogs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
             tBlog tBlog = db.tBlog.Find(id);
             db.tBlog.Remove(tBlog);
@@ -123,13 +167,37 @@ namespace PracticeFive.Controllers
             return RedirectToAction("List");
         }
 
-        protected override void Dispose(bool disposing)
+        public ActionResult AddCollectBlog(int id)
         {
-            if (disposing)
+            if (Session["UserID"] == null)
             {
-                db.Dispose();
+                return RedirectToAction("Login", "Home");
             }
-            base.Dispose(disposing);
+            tBlog AddCollect = db.tBlog.FirstOrDefault(x => x.BlogID == id);
+
+            int MemberID = Convert.ToInt32(Session["UserID"]);
+            //int BlogID = AddCollect.BlogID;
+
+            var Collect = db.CollectBlog
+                .Where(c => c.CollectMemberID == MemberID && c.CollectBlogID == AddCollect.BlogID)
+                .FirstOrDefault();
+
+
+            if (AddCollect != null)
+            {
+                if (Collect == null)
+                {
+                    db.CollectBlog.Add(new CollectBlog() { CollectMemberID = MemberID, CollectBlogID = AddCollect.BlogID });
+                    db.SaveChanges();
+                }
+                else
+                {
+                    db.CollectBlog.Remove(Collect);
+                    db.SaveChanges();
+                }
+
+            }
+            return RedirectToAction("List");
         }
     }
 }

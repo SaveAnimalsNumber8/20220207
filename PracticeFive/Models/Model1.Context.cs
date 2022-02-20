@@ -32,5 +32,8 @@ namespace PracticeFive.Models
         public virtual DbSet<tTransfer> tTransfer { get; set; }
         public virtual DbSet<tBlog> tBlog { get; set; }
         public virtual DbSet<tComment> tComment { get; set; }
+        public virtual DbSet<CollectBlog> CollectBlog { get; set; }
+        public virtual DbSet<FollowRescue> FollowRescue { get; set; }
+        public virtual DbSet<FollowTransfer> FollowTransfer { get; set; }
     }
 }

@@ -1,5 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="SaveAnimalsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CollectBlog">
+    <Key>
+      <PropertyRef Name="CollectID" />
+    </Key>
+    <Property Name="CollectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CollectMemberID" Type="int" Nullable="false" />
+    <Property Name="CollectBlogID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FollowRescue">
+    <Key>
+      <PropertyRef Name="FollowID" />
+    </Key>
+    <Property Name="FollowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FollowMemberID" Type="int" Nullable="false" />
+    <Property Name="FollowResueID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FollowTransfer">
+    <Key>
+      <PropertyRef Name="FollowID" />
+    </Key>
+    <Property Name="FollowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FollowMemberID" Type="int" Nullable="false" />
+    <Property Name="FollowTransferID" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="tBlog">
     <Key>
       <PropertyRef Name="BlogID" />
@@ -82,7 +106,91 @@
     <Property Name="TransferContactPerson" Type="nvarchar" MaxLength="200" />
     <Property Name="Created_At" Type="datetime2" Precision="7" Nullable="false" />
   </EntityType>
-  <Association Name="FK__tBlog__BlogMembe__33D4B598">
+  <Association Name="FK__CollectBl__Colle__4D94879B">
+    <End Role="tMember" Type="Self.tMember" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CollectBlog" Type="Self.CollectBlog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tMember">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="CollectBlog">
+        <PropertyRef Name="CollectMemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CollectBl__Colle__4E88ABD4">
+    <End Role="tBlog" Type="Self.tBlog" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="CollectBlog" Type="Self.CollectBlog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tBlog">
+        <PropertyRef Name="BlogID" />
+      </Principal>
+      <Dependent Role="CollectBlog">
+        <PropertyRef Name="CollectBlogID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FollowRes__Follo__5165187F">
+    <End Role="tMember" Type="Self.tMember" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FollowRescue" Type="Self.FollowRescue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tMember">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="FollowRescue">
+        <PropertyRef Name="FollowMemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FollowRes__Follo__52593CB8">
+    <End Role="tRescue" Type="Self.tRescue" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FollowRescue" Type="Self.FollowRescue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tRescue">
+        <PropertyRef Name="RescueID" />
+      </Principal>
+      <Dependent Role="FollowRescue">
+        <PropertyRef Name="FollowResueID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FollowTra__Follo__5535A963">
+    <End Role="tMember" Type="Self.tMember" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FollowTransfer" Type="Self.FollowTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tMember">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="FollowTransfer">
+        <PropertyRef Name="FollowMemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FollowTra__Follo__5629CD9C">
+    <End Role="tTransfer" Type="Self.tTransfer" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FollowTransfer" Type="Self.FollowTransfer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tTransfer">
+        <PropertyRef Name="TransferID" />
+      </Principal>
+      <Dependent Role="FollowTransfer">
+        <PropertyRef Name="FollowTransferID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tBlog__BlogMembe__3A81B327">
     <End Role="tMember" Type="Self.tMember" Multiplicity="1" />
     <End Role="tBlog" Type="Self.tBlog" Multiplicity="*" />
     <ReferentialConstraint>
@@ -94,7 +202,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tComment__Commen__49C3F6B7">
+  <Association Name="FK__tComment__Commen__45F365D3">
     <End Role="tMember" Type="Self.tMember" Multiplicity="1" />
     <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
     <ReferentialConstraint>
@@ -106,7 +214,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tComment__Commen__4AB81AF0">
+  <Association Name="FK__tComment__Commen__46E78A0C">
     <End Role="tRescue" Type="Self.tRescue" Multiplicity="1" />
     <End Role="tComment" Type="Self.tComment" Multiplicity="*" />
     <ReferentialConstraint>
@@ -166,7 +274,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tTransfer__Trans__3F466844">
+  <Association Name="FK__tTransfer__Trans__33D4B598">
     <End Role="tMember" Type="Self.tMember" Multiplicity="1" />
     <End Role="tTransfer" Type="Self.tTransfer" Multiplicity="*" />
     <ReferentialConstraint>
@@ -178,7 +286,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tTransfer__Trans__403A8C7D">
+  <Association Name="FK__tTransfer__Trans__34C8D9D1">
     <End Role="tSpecies" Type="Self.tSpecies" Multiplicity="1" />
     <End Role="tTransfer" Type="Self.tTransfer" Multiplicity="*" />
     <ReferentialConstraint>
@@ -190,7 +298,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tTransfer__Trans__412EB0B6">
+  <Association Name="FK__tTransfer__Trans__35BCFE0A">
     <End Role="tPosition" Type="Self.tPosition" Multiplicity="1" />
     <End Role="tTransfer" Type="Self.tTransfer" Multiplicity="*" />
     <ReferentialConstraint>
@@ -202,7 +310,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tTransfer__Trans__4222D4EF">
+  <Association Name="FK__tTransfer__Trans__36B12243">
     <End Role="tPosition" Type="Self.tPosition" Multiplicity="1" />
     <End Role="tTransfer" Type="Self.tTransfer" Multiplicity="*" />
     <ReferentialConstraint>
@@ -215,6 +323,9 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="SaveAnimalsModelStoreContainer">
+    <EntitySet Name="CollectBlog" EntityType="Self.CollectBlog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FollowRescue" EntityType="Self.FollowRescue" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FollowTransfer" EntityType="Self.FollowTransfer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tBlog" EntityType="Self.tBlog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tComment" EntityType="Self.tComment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tMember" EntityType="Self.tMember" Schema="dbo" store:Type="Tables" />
@@ -222,15 +333,39 @@
     <EntitySet Name="tRescue" EntityType="Self.tRescue" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tSpecies" EntityType="Self.tSpecies" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tTransfer" EntityType="Self.tTransfer" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__tBlog__BlogMembe__33D4B598" Association="Self.FK__tBlog__BlogMembe__33D4B598">
+    <AssociationSet Name="FK__CollectBl__Colle__4D94879B" Association="Self.FK__CollectBl__Colle__4D94879B">
+      <End Role="tMember" EntitySet="tMember" />
+      <End Role="CollectBlog" EntitySet="CollectBlog" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CollectBl__Colle__4E88ABD4" Association="Self.FK__CollectBl__Colle__4E88ABD4">
+      <End Role="tBlog" EntitySet="tBlog" />
+      <End Role="CollectBlog" EntitySet="CollectBlog" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FollowRes__Follo__5165187F" Association="Self.FK__FollowRes__Follo__5165187F">
+      <End Role="tMember" EntitySet="tMember" />
+      <End Role="FollowRescue" EntitySet="FollowRescue" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FollowRes__Follo__52593CB8" Association="Self.FK__FollowRes__Follo__52593CB8">
+      <End Role="tRescue" EntitySet="tRescue" />
+      <End Role="FollowRescue" EntitySet="FollowRescue" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FollowTra__Follo__5535A963" Association="Self.FK__FollowTra__Follo__5535A963">
+      <End Role="tMember" EntitySet="tMember" />
+      <End Role="FollowTransfer" EntitySet="FollowTransfer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FollowTra__Follo__5629CD9C" Association="Self.FK__FollowTra__Follo__5629CD9C">
+      <End Role="tTransfer" EntitySet="tTransfer" />
+      <End Role="FollowTransfer" EntitySet="FollowTransfer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tBlog__BlogMembe__3A81B327" Association="Self.FK__tBlog__BlogMembe__3A81B327">
       <End Role="tMember" EntitySet="tMember" />
       <End Role="tBlog" EntitySet="tBlog" />
     </AssociationSet>
-    <AssociationSet Name="FK__tComment__Commen__49C3F6B7" Association="Self.FK__tComment__Commen__49C3F6B7">
+    <AssociationSet Name="FK__tComment__Commen__45F365D3" Association="Self.FK__tComment__Commen__45F365D3">
       <End Role="tMember" EntitySet="tMember" />
       <End Role="tComment" EntitySet="tComment" />
     </AssociationSet>
-    <AssociationSet Name="FK__tComment__Commen__4AB81AF0" Association="Self.FK__tComment__Commen__4AB81AF0">
+    <AssociationSet Name="FK__tComment__Commen__46E78A0C" Association="Self.FK__tComment__Commen__46E78A0C">
       <End Role="tRescue" EntitySet="tRescue" />
       <End Role="tComment" EntitySet="tComment" />
     </AssociationSet>
@@ -250,19 +385,19 @@
       <End Role="tSpecies" EntitySet="tSpecies" />
       <End Role="tRescue" EntitySet="tRescue" />
     </AssociationSet>
-    <AssociationSet Name="FK__tTransfer__Trans__3F466844" Association="Self.FK__tTransfer__Trans__3F466844">
+    <AssociationSet Name="FK__tTransfer__Trans__33D4B598" Association="Self.FK__tTransfer__Trans__33D4B598">
       <End Role="tMember" EntitySet="tMember" />
       <End Role="tTransfer" EntitySet="tTransfer" />
     </AssociationSet>
-    <AssociationSet Name="FK__tTransfer__Trans__403A8C7D" Association="Self.FK__tTransfer__Trans__403A8C7D">
+    <AssociationSet Name="FK__tTransfer__Trans__34C8D9D1" Association="Self.FK__tTransfer__Trans__34C8D9D1">
       <End Role="tSpecies" EntitySet="tSpecies" />
       <End Role="tTransfer" EntitySet="tTransfer" />
     </AssociationSet>
-    <AssociationSet Name="FK__tTransfer__Trans__412EB0B6" Association="Self.FK__tTransfer__Trans__412EB0B6">
+    <AssociationSet Name="FK__tTransfer__Trans__35BCFE0A" Association="Self.FK__tTransfer__Trans__35BCFE0A">
       <End Role="tPosition" EntitySet="tPosition" />
       <End Role="tTransfer" EntitySet="tTransfer" />
     </AssociationSet>
-    <AssociationSet Name="FK__tTransfer__Trans__4222D4EF" Association="Self.FK__tTransfer__Trans__4222D4EF">
+    <AssociationSet Name="FK__tTransfer__Trans__36B12243" Association="Self.FK__tTransfer__Trans__36B12243">
       <End Role="tPosition" EntitySet="tPosition" />
       <End Role="tTransfer" EntitySet="tTransfer" />
     </AssociationSet>

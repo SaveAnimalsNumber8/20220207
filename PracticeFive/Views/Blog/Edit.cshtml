@@ -2,94 +2,112 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Edit</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>tBlog</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.BlogID)
+    <div class="form-horizontal container">
+        <h4>tBlog</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.BlogID)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.BlogMemberID, "BlogMemberID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div hidden>
             @Html.DropDownList("BlogMemberID", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.BlogMemberID, "", new { @class = "text-danger" })
         </div>
-    </div>
+        <div class="form-group ">
+            @*@Html.LabelFor(model => model.BlogMemberID, "BlogMemberID", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("發文人", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Label(HttpUtility.UrlDecode(Session["UserName"].ToString()))
+                @*@Html.ValidationMessageFor(model => model.BlogMemberID, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
 
-    @*<div class="form-group">
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.BlogCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BlogCategory, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BlogCategory, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
             @Html.LabelFor(model => model.BlogCategory, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BlogCategory, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BlogCategory, "", new { @class = "text-danger" })
+                @switch (Model.BlogCategory)
+                {
+                    case "救援心得":
+                        <select id="BlogCategory" name="BlogCategory" style="">
+                            <option disabled value="請選擇">請選擇</option>
+                            <option selected="selected" value="救援心得">救援心得</option>
+                            <option value="認養故事">認養故事</option>
+                        </select>
+                        break;
+                    case "認養故事":
+                        <select id="BlogCategory" name="BlogCategory" style="">
+                            <option disabled value="請選擇">請選擇</option>
+                            <option selected="selected" value="認養故事">認養故事</option>
+                            <option value="救援心得">救援心得</option>
+                        </select>
+                        break;
+                }
             </div>
-        </div>*@    
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.BlogCategory, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @switch (Model.BlogCategory)
-            {
-                case "救援心得":
-                    <select id="BlogCategory" name="BlogCategory" style="">
-                        <option  disabled value="請選擇">請選擇</option>
-                        <option selected="selected" value="救援心得">救援心得</option>
-                        <option value="認養故事">認養故事</option>
-                    </select>
-                    break;
-                case "認養故事":
-                    <select id="BlogCategory" name="BlogCategory" style="">
-                        <option disabled value="請選擇">請選擇</option>
-                        <option selected="selected" value="認養故事">認養故事</option>
-                        <option value="救援心得">救援心得</option>
-                    </select>
-                    break;
-            }
+        <div class="form-group">
+            @Html.LabelFor(model => model.BlogTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BlogTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BlogTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BlogContent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.BlogContent, new { htmlAttributes = new { @class = "content " } })
+                @*@Html.EditorFor(model => model.BlogContent, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.BlogContent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Created_At, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Created_At, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Created_At, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+                @Html.ActionLink("回到清單", "List")
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.BlogTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.BlogTitle, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.BlogTitle, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.BlogContent, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.BlogContent, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.BlogContent, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Created_At, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Created_At, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Created_At, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "List")
-</div>
+<style>
+    TextArea {
+        display: block;
+        width: 100%;
+        height: 600px;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+</style>
 
 

@@ -23,6 +23,15 @@
         <EntityTypeShape EntityType="SaveAnimalsModel.tComment" Width="1.5" PointX="10.75" PointY="5.375" />
         <AssociationConnector Association="SaveAnimalsModel.FK__tComment__Commen__49C3F6B7" />
         <AssociationConnector Association="SaveAnimalsModel.FK__tComment__Commen__4AB81AF0" />
+        <EntityTypeShape EntityType="SaveAnimalsModel.CollectBlog" Width="1.5" PointX="7.5" PointY="9.375" />
+        <EntityTypeShape EntityType="SaveAnimalsModel.FollowRescue" Width="1.5" PointX="12.875" PointY="0.75" />
+        <EntityTypeShape EntityType="SaveAnimalsModel.FollowTransfer" Width="1.5" PointX="12.875" PointY="4" />
+        <AssociationConnector Association="SaveAnimalsModel.FK__CollectBl__Colle__4D94879B" />
+        <AssociationConnector Association="SaveAnimalsModel.FK__CollectBl__Colle__4E88ABD4" />
+        <AssociationConnector Association="SaveAnimalsModel.FK__FollowRes__Follo__5165187F" />
+        <AssociationConnector Association="SaveAnimalsModel.FK__FollowRes__Follo__52593CB8" />
+        <AssociationConnector Association="SaveAnimalsModel.FK__FollowTra__Follo__5535A963" />
+        <AssociationConnector Association="SaveAnimalsModel.FK__FollowTra__Follo__5629CD9C" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

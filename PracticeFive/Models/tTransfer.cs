@@ -14,6 +14,12 @@ namespace PracticeFive.Models
     
     public partial class tTransfer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tTransfer()
+        {
+            this.FollowTransfer = new HashSet<FollowTransfer>();
+        }
+    
         public int TransferID { get; set; }
         public int TransferMemberID { get; set; }
         public string TransferDone { get; set; }
@@ -34,5 +40,7 @@ namespace PracticeFive.Models
         public virtual tPosition tPosition { get; set; }
         public virtual tPosition tPosition1 { get; set; }
         public virtual tSpecies tSpecies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FollowTransfer> FollowTransfer { get; set; }
     }
 }

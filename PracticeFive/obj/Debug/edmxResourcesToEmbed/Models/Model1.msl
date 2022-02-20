@@ -90,5 +90,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CollectBlog">
+      <EntityTypeMapping TypeName="SaveAnimalsModel.CollectBlog">
+        <MappingFragment StoreEntitySet="CollectBlog">
+          <ScalarProperty Name="CollectBlogID" ColumnName="CollectBlogID" />
+          <ScalarProperty Name="CollectMemberID" ColumnName="CollectMemberID" />
+          <ScalarProperty Name="CollectID" ColumnName="CollectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FollowRescue">
+      <EntityTypeMapping TypeName="SaveAnimalsModel.FollowRescue">
+        <MappingFragment StoreEntitySet="FollowRescue">
+          <ScalarProperty Name="FollowResueID" ColumnName="FollowResueID" />
+          <ScalarProperty Name="FollowMemberID" ColumnName="FollowMemberID" />
+          <ScalarProperty Name="FollowID" ColumnName="FollowID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FollowTransfer">
+      <EntityTypeMapping TypeName="SaveAnimalsModel.FollowTransfer">
+        <MappingFragment StoreEntitySet="FollowTransfer">
+          <ScalarProperty Name="FollowTransferID" ColumnName="FollowTransferID" />
+          <ScalarProperty Name="FollowMemberID" ColumnName="FollowMemberID" />
+          <ScalarProperty Name="FollowID" ColumnName="FollowID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

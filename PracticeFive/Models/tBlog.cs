@@ -11,18 +11,24 @@ namespace PracticeFive.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class tBlog
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tBlog()
+        {
+            this.CollectBlog = new HashSet<CollectBlog>();
+        }
+    
         public int BlogID { get; set; }
         public int BlogMemberID { get; set; }
         public string BlogCategory { get; set; }
         public string BlogTitle { get; set; }
-        [DataType(DataType.MultilineText)]
         public string BlogContent { get; set; }
         public System.DateTime Created_At { get; set; }
     
         public virtual tMember tMember { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CollectBlog> CollectBlog { get; set; }
     }
 }

@@ -1,57 +1,103 @@
-﻿@model PracticeFive.Models.tBlog
+﻿@model PracticeFive.ViewModel.BlogDetailViewModel
+
 @{
-    ViewBag.Title = "Details";
+    string action = ViewBag.action;
+    string title = string.Empty;
+    object textboxAttributes = new { @class = "form-control" };
+    object textboxReadOnlyAttributes = new { @class = "form-control", @disabled = "@disabled" };
+    switch (action)
+    {
+        case "Add":
+            title += "建立";
+            break;
+        case "Update":
+            title += "編輯";
+            break;
+        default:
+            title += "檢視";
+            textboxAttributes = new { @class = "form-control", @disabled = "@disabled" };
+            break;
+    }
 }
 
-<h2>Details</h2>
+
+@using (Html.BeginForm("Create", "Blog", FormMethod.Post, new { id = "form_id" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal container my-5" , id="MainDiv">
+        <h4>@title</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group row">
+            @Html.LabelFor(model => model.BlogMemberName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.Label(HttpUtility.UrlDecode(Session["UserName"].ToString()))*@
+                @Html.HiddenFor(model => model.BlogMemberID, textboxReadOnlyAttributes)
+                @Html.TextBox("BlogMemberID", Model.BlogMemberName, textboxReadOnlyAttributes)
+                @*@Html.DropDownList("BlogMemberID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BlogMemberID, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.BlogCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BlogCategory, new List<SelectListItem> {
+           new SelectListItem { Text="請選擇", Value="" },
+           new SelectListItem { Text="救援心得", Value="救援心得" },
+           new SelectListItem { Text="認養故事", Value="認養故事" }, }, textboxAttributes)
+                @Html.ValidationMessageFor(model => model.BlogCategory, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.BlogTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.BlogTitle, textboxAttributes)
+                @Html.ValidationMessageFor(model => model.BlogTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.BlogContent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.BlogContent, textboxAttributes)
+                @Html.ValidationMessageFor(model => model.BlogContent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @if (action != "View")
+        {
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="發布文章" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+}
 
 <div>
-    <h4>tBlog</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BlogCategory)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BlogCategory)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BlogTitle)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BlogTitle)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BlogContent)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BlogContent)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Created_At)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Created_At)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.tMember.MemberName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tMember.MemberName)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.BlogID }) |
     @Html.ActionLink("Back to List", "List")
-</p>
+</div>
+
+<script>
+    //$('#form_id').submit(function (e) {
+    //        e.preventDefault();
+
+    //        var BlogCategory = $("#BlogCategory").val();
+    //        var BlogTitle = $("#BlogTitle").val();
+    //        var BlogContent = editor.value();
+    //        if (BlogCategory == "" || BlogTitle == "" || BlogContent == "") {
+    //            return;
+    //        }
+    //        var tBlog = { BlogCategory: BlogCategory, BlogTitle: BlogTitle, BlogContent: BlogContent };
+
+    //        $.ajax({
+    //            type: "POST",
+    //            url: '/Blog/Create',
+    //            contentType: "application/json; charset=utf-8",
+    //            dataType: "json",
+    //            data: JSON.stringify(tBlog),
+    //        });
+    //    });
+</script>

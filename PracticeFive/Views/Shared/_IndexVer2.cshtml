@@ -20,7 +20,14 @@
             <a href="index.html"><img class="logo" src="/Img/logoSmall.png" alt=""></a>
             <ul class="menu">
                 <li>
-                    @Html.ActionLink("救援通報", "List", "Rescue")
+                    @if (Session["UserID"] == null)
+                    {
+                        @Html.ActionLink("救援通報", "List", "Rescue")
+                    }
+                    else
+                    {
+                        @Html.ActionLink("救援通報", "List", "RescueMember")
+                    }
                     <ul class="subs">
                         @if (Session["UserID"] == null)
                         {
@@ -35,17 +42,39 @@
                     </ul>
                 </li>
                 <li>
-                    @Html.ActionLink("認養資訊", "List", "Transfer")
+                    @if (Session["UserID"] == null)
+                    {
+                        @Html.ActionLink("認養資訊", "List", "Transfer")
+                    }
+                    else
+                    {
+                        @Html.ActionLink("認養資訊", "List", "TransferMember")
+                    }
                     <ul class="subs">
-                        <li class="submenu">@Html.ActionLink("我要送養", "Login", "Home")</li>
-                        <li class="submenu">@Html.ActionLink("我要認養", "List", "Transfer")</li>
+                        @if (Session["UserID"] == null)
+                        {
+                            <li class="submenu">@Html.ActionLink("我要送養", "Login", "Home")</li>
+                            <li class="submenu">@Html.ActionLink("我要認養", "List", "Transfer")</li>
+                        }
+                        else
+                        {
+                            <li class="submenu">@Html.ActionLink("我要送養", "Transfer", "TransferMember")</li>
+                            <li class="submenu">@Html.ActionLink("我要認養", "List", "TransferMember")</li>
+                        }
                     </ul>
                 </li>
                 <li>
-                    @Html.ActionLink("文章分享", "List", "Blog")
+                    @if (Session["UserID"] == null)
+                    {
+                        @Html.ActionLink("文章分享", "List", "Blog")
+                    }
+                    else
+                    {
+                        @Html.ActionLink("文章分享", "List", "Blog")
+                    }
                     <ul class="subs">
-                        <li class="submenu">@Html.ActionLink("救援心得", "ResuceExperience", "Blog")</li>
-                        <li class="submenu">@Html.ActionLink("認養故事", "TransferStory", "Blog")</li>
+                        <li class="submenu">@Html.ActionLink("救援心得", "List", "Blog", new { type = "救援心得" }, null)</li>
+                        <li class="submenu">@Html.ActionLink("認養故事", "List", "Blog", new { type = "認養故事" }, null)</li>
                     </ul>
                 </li>
                 <li>@Html.ActionLink("聯絡我們", "ContactUs", "Home")</li>

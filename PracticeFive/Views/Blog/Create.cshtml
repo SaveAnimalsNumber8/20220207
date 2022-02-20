@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Blog", FormMethod.Post, new { id = "form_id" }))
 {
     @Html.AntiForgeryToken()
 
@@ -20,18 +20,17 @@
             <div class="col-md-10">
                 @Html.Label(HttpUtility.UrlDecode(Session["UserName"].ToString()))
                 @*@Html.DropDownList("BlogMemberID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BlogMemberID, "", new { @class = "text-danger" })*@
+                    @Html.ValidationMessageFor(model => model.BlogMemberID, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.BlogCategory, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select name="BlogCategory">
-                    <option disabled selected>請選擇</option>
-                    <option>救援心得</option>
-                    <option>認養故事</option>
-                </select>
+                @Html.DropDownListFor(model => model.BlogCategory, new List<SelectListItem> {
+           new SelectListItem { Text="請選擇", Value="" },
+           new SelectListItem { Text="救援心得", Value="救援心得" },
+           new SelectListItem { Text="認養故事", Value="認養故事" }, })
                 @Html.ValidationMessageFor(model => model.BlogCategory, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -47,7 +46,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BlogContent, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BlogContent, new { htmlAttributes = new { @class = "form-control "} })
+                @Html.TextAreaFor(model => model.BlogContent, new { htmlAttributes = new { @class = "form-control " } })
                 @Html.ValidationMessageFor(model => model.BlogContent, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -62,7 +61,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="發布文章" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -72,3 +71,24 @@
     @Html.ActionLink("Back to List", "List")
 </div>
 
+<script>
+    //$('#form_id').submit(function (e) {
+    //        e.preventDefault();
+            
+    //        var BlogCategory = $("#BlogCategory").val();
+    //        var BlogTitle = $("#BlogTitle").val();
+    //        var BlogContent = editor.value();
+    //        if (BlogCategory == "" || BlogTitle == "" || BlogContent == "") {
+    //            return;
+    //        }
+    //        var tBlog = { BlogCategory: BlogCategory, BlogTitle: BlogTitle, BlogContent: BlogContent };
+
+    //        $.ajax({
+    //            type: "POST",
+    //            url: '/Blog/Create',
+    //            contentType: "application/json; charset=utf-8",
+    //            dataType: "json",
+    //            data: JSON.stringify(tBlog),
+    //        });
+    //    });
+</script>

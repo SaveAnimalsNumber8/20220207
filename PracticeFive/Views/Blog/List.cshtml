@@ -1,131 +1,174 @@
-﻿@model IEnumerable<PracticeFive.Models.tBlog>
+﻿@model IEnumerable<PracticeFive.ViewModel.BlogListViewModel>
 
 @{
     ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="js/bootstrap.min.js"></script>
-<h2>Index</h2>
-
-@if (Session["UserID"] == null)
-{
-    <p>@Html.ActionLink("張貼文章", "Login", "Home")</p>
-}
-else
-{
-    <p>
-        @Html.ActionLink("張貼文章", "Create")
-    </p>
-}
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BlogCategory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BlogTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BlogContent)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Created_At)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tMember.MemberName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BlogCategory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BlogTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BlogContent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created_At)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tMember.MemberName)
-            </td>
-            <td>
-                @Html.ActionLink("修改", "Edit", new { id = item.BlogID }) |
-                @Html.ActionLink("詳細內容", "Details", new { id = item.BlogID }) |
-                @Html.ActionLink("刪除", "Delete", new { id = item.BlogID }) |
-                @Html.ActionLink("收藏", "follow", new { id = item.BlogID })
-            </td>
-        </tr>
-    }
-
-</table>
-
-<div class="row">
-    <div class="col-md-1">
+<div class="container">
+    <div>
+        @if (Session["UserID"] == null)
+        {
+            <div class="d-md-flex justify-content-md-end py-1">@Html.ActionLink("發文", "Login", "Home", null, new { @class = "btn btn-danger" })</div>
+        }
+        else
+        {
+            <div class="d-md-flex justify-content-md-end py-1">@*@Html.ActionLink("發文", "Create", null, new { @class = "btn btn-danger" })*@</div>
+            <div class="d-md-flex justify-content-md-end py-1">
+                <a href="@Url.Action("Details", "Blog", new { type = "Add" })" title="發文" class="btn btn-danger">發文</a>
+            </div>
+        }
     </div>
-    <div class="col-md-10">
-        <ul>
-            @foreach (var item in Model)
-            {
-                <li class="a-row-data">
-                    <div class="row">
-                        <div class="col-md-1">
+
+    <div class="row py-2">
+        <div class="col-md-3">
+            <div>
+                <div class="widget">
+                    <h5>文章搜尋</h5>
+                    @using (Html.BeginForm())
+                    {
+                        <div class="input-group">
+                            <input placeholder="文章搜尋" type="text" name="Keyword" runat="server" class="form-control search-input" />
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn search-button">
+                                    <img alt="搜尋" src="@Url.Content( "../Img/search.png")" width="20">
+                                </button>
+                            </div>
                         </div>
-                        <div class="text-box row col-md-3 align-items-center">
-                            <h3 class="title">
+                    }
+                </div>
+                <div class="">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <h5 class="title">分類</h5>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="@Url.Action("List","Blog", new { type = "救援心得" })"
+                               class="list-group-item list-group-item-action list-group-item-success">
+                                救援心得
+                            </a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="@Url.Action("List","Blog", new { type = "認養故事" })"
+                               class="list-group-item list-group-item-action list-group-item-success">
+                                認養故事
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BlogCategory)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.BlogTitle)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.BlogContent)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Created_At)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.tMember.MemberName)
+                        </th>
+                        <th>收藏</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.BlogCategory)
-                            </h3>
-                        </div>
-                        <div class="text-box col-md-8">
-                            <h3 class="title">
-                                @Html.DisplayFor(modelItem => item.BlogTitle)
-                            </h3>
-                            <div>
-                                <p>
-                                    @Html.DisplayFor(modelItem => item.BlogContent)
-                                </p>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p>
-                                        @Html.DisplayFor(modelItem => item.Created_At)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.BlogTitle)
+                                </td>*@
+                        <td style="max-width:200px">
+                            <a href="@Url.Action("Details", "Blog", new { id = item.BlogID, type = "View" })" title="更多">
+                                <div>
+                                    <div class="title">
+                                        <p>@Html.DisplayFor(modelItem => item.BlogTitle)</p>
+                                    </div>
+                                    <p class="line-limit-length">
+                                        @Html.DisplayFor(modelItem => item.BlogContent)
                                     </p>
                                 </div>
-                                <div class="col-md-7">
-                                    <p>
-                                        @Html.DisplayFor(modelItem => item.tMember.MemberName)
-                                    </p>
-                                </div>
-                            </div>
-                            <div>
-                                @Html.ActionLink("修改", "Edit", new { id = item.BlogID }) |
-                                @Html.ActionLink("詳細內容", "Details", new { id = item.BlogID }) |
-                                @Html.ActionLink("刪除", "Delete", new { id = item.BlogID }) |
-                                @Html.ActionLink("收藏", "follow", new { id = item.BlogID })
-                            </div>                           
-                        </div>
-                    </div>
-                </li>
-            }
-        </ul>
-    </div>
-    <div class="col-md-1">
+                            </a>
+                        </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Created_At)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tMember.MemberName)
+                            </td>
+                            <td c>
+                                <a href="@Url.Action("AddCollectBlog", "Blog", new { id = item.BlogID })" title="Widget View" class="links">
+                                    <img alt="收藏" src="@Url.Content(item.likes ? "../Img/heart_full.png" : "../Img/heart_hollow.png")" width="30">
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 <style>
-    .a-row-data {
-        border-bottom: solid;
-        border-bottom-color: gainsboro;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
+
+    .line-limit-length {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: rgba(26, 26, 26, 0.6);
+        font-size: 13px;
+        line-height: 1.5;
+        max-height: 3em;
+        text-align: left;
     }
-    ul{list-style: none;}
+
+    tr a, tr a:hover, tr a:visited, tr a:link, tr a:active {
+        color: #000;
+        text-decoration: none;
+        outline: none;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+    h5 {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .widget {
+        margin-bottom: 40px;
+    }
+
+        .widget .search-input {
+            background: transparent none repeat scroll 0 0;
+            border: 1px solid silver;
+            /*border-radius: initial;*/
+            box-shadow: none;
+            height: 45px;
+            padding: 10px;
+        }
+
+        .widget .search-button {
+            background: transparent none repeat scroll 0 0;
+            border: 1px solid silver;
+            /*border-radius: 0;*/
+            height: 45px;
+        }
 </style>
+
+
+
